@@ -75,20 +75,6 @@ public class CodigoMorseController {
     }
 
 
-    public static String morseAscii(String morseBuscado){
-        Hashtable<String, String> equivalencias = obterEquival();
-        Set<String> chaves = equivalencias.keySet();
-
-        //percorrer e pegar as chaves
-        for (String chave : chaves){
-            String morse = equivalencias.get(chave);
-            if (morse.equals(morseBuscado)){
-                return chave;
-            }
-        }
-        return "";
-    }
-
     @GetMapping(value = "/morse/{original}")
     public static String codificarMorse(@PathVariable String original){
 
