@@ -69,19 +69,19 @@ public class CodigoMorseController {
     }
 
 
-    public static String asciiMorse(@PathVariable String ascii){
+    public static String asciiForMorse(@PathVariable String ascii){
         Hashtable<String, String> equivalencias = obterEquival();
         return equivalencias.getOrDefault(ascii, "");
     }
 
 
-    @GetMapping(value = "/morse/{original}")
-    public static String codificarMorse(@PathVariable String original){
+    @GetMapping(value = "/morse/{palavra}")
+    public static String codificarMorse(@PathVariable String palavra){
 
         StringBuilder codificado = new StringBuilder();
-        for (int i = 0; i < original.length(); i++) {
-            String paravrasMaiusculas = String.valueOf(original.charAt(i)).toUpperCase();
-            String equivalencia = asciiMorse(paravrasMaiusculas);
+        for (int i = 0; i < palavra.length(); i++) {
+            String paravrasMaiusculas = String.valueOf(palavra.charAt(i)).toUpperCase();
+            String equivalencia = asciiForMorse(paravrasMaiusculas);
             codificado
                     .append(equivalencia)
                     .append(" ");
