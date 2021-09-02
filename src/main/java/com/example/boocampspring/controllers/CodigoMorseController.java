@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Hashtable;
-import java.util.Set;
 
 @RestController
 public class CodigoMorseController {
@@ -79,12 +78,12 @@ public class CodigoMorseController {
     public static String codificarMorse(@PathVariable String palavra){
 
         StringBuilder codificado = new StringBuilder();
-        for (int i = 0; i < palavra.length(); i++) {
-            String paravrasMaiusculas = String.valueOf(palavra.charAt(i)).toUpperCase();
-            String equivalencia = asciiForMorse(paravrasMaiusculas);
+        for (int i = 0; i < palavra.length(); i++) { //percorrer a palavra
+            String paravrasMaiusculas = String.valueOf(palavra.charAt(i)).toUpperCase(); //transformar cada letra
+            String equivalencia = asciiForMorse(paravrasMaiusculas); //ignorar os espaços
             codificado
-                    .append(equivalencia)
-                    .append(" ");
+                    .append(equivalencia) //coverter tudo em string e adicionar
+                    .append(" "); //add espaços
         }
         return codificado.toString();
     }
