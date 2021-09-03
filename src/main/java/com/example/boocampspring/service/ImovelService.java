@@ -11,6 +11,7 @@ import java.util.List;
 @Service
 public class ImovelService {
 
+    private static List<Imovel> imoveis = new ArrayList<>();
     private static List<Quartos> quartos = new ArrayList<>();
 
 
@@ -22,31 +23,31 @@ public class ImovelService {
 
     public static Imovel criar(Imovel imovel){
 
-        return new Imovel(imovel.getNome(), imovel.getEndereco(), imovel.getTamanho());
+        imoveis.add(imovel);
+        return imovel;
     }
 
-    public static double retornaMetrosImovel(Imovel imovel){
-        double total = 0;
-        quartos = imovel.getQuartos();
-        for (Quartos tamanhoTot : quartos){
-            total += tamanhoTot.getComprimento() * tamanhoTot.getLargura();
-
+    public static Double retornaMetrosImovel(String nome){
+        for (Imovel imovel : imoveis){
+            if (imovel.getNome().equals(nome)){
+                return imovel.getTamanho();
+            }
         }
-        return total + imovel.getTamanho();
+        return null;
     }
 
 
-    public static double valorImovel(Imovel imovel){
-        final double precoMetroQuadrado = 800.0;
-        double areaTot = retornaMetrosImovel(imovel);
-
-        areaTot *= precoMetroQuadrado;
-
-        return areaTot;
+    public static Double valorImovel(String nome){
+       for (Imovel imovel : imoveis) {
+            if (imovel.getNome().equals(nome)) {
+                return imovel.getTamanho()*800;
+            }
+       }
+       return null;
     }
 
 
-    public static double retornaTotalMetrosQuartos(Imovel imovel){
+    public static double RetornaTotalMetrosQuartos(Imovel imovel){
         double total = 0;
         quartos = imovel.getQuartos();
         for (Quartos tamanhoTot : quartos){
@@ -55,6 +56,49 @@ public class ImovelService {
         }
         return total;
     }
+
+
+    private static Quartos retornaMaiorQuarto(Imovel imovel)
+    {
+        quartos = imovel.getQuartos();
+
+        Quartos q = quartos.stream()
+                .max(Comparator
+                .comparingDouble(x -> x.getComprimento() * x.getLargura()))
+                .get();
+
+        return q;
+    }
+
+    public static Quartos maiorQuarto(String nome) {
+        for (Imovel imovel : imoveis) {
+            if (imovel.getNome().equals(nome)){
+                return ImovelService.retornaMaiorQuarto(imovel);
+            }
+        }
+        return null;
+    }
+
+
+    private static String metrosquarto(Imovel imovel){
+        String retorno = "";
+        quartos = imovel.getQuartos();
+        for (Quartos q : quartos){
+            retorno += "nome: " + q.getNome() + " \t area: " + q.area() + "\n";
+        }
+        return retorno;
+    }
+
+    public static String areaPorQuarto(String nome) {
+        for (Imovel imovel : imoveis) {
+            if (imovel.getNome().equals(nome)) {
+                return metrosquarto(imovel);
+            }
+        }
+        return nome;
+    }
+
+
 
 
 

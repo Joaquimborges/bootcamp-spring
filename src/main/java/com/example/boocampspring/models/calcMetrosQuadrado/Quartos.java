@@ -42,4 +42,8 @@ public class Quartos {
     }
 
 
+    public double area(){
+        return getComprimento() * getLargura();
+    }
+
 }

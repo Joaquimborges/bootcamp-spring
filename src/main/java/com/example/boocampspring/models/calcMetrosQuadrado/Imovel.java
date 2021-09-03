@@ -46,10 +46,12 @@ public class Imovel {
     public Imovel() {
     }
 
-    public Imovel(String nome, String endereco, double tamanho) {
+    public Imovel(String nome, String endereco, double tamanho, List<Quartos> quartos) {
         this.nome = nome;
         this.endereco = endereco;
         this.tamanho = tamanho;
+        this.quartos = quartos;
+
     }
 
     @Override
